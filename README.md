@@ -1,23 +1,30 @@
-## Getting Started
+## Marketplace contract for non-fungible tokens (NFTs)
 
-```bash
+* Built on top of [ERC721](https://docs.openzeppelin.com/contracts/4.x/erc721) [openzeppelin contract](https://github.com/OpenZeppelin/openzeppelin-contracts)
+* Based on [CryptoPunk](https://github.com/larvalabs/cryptopunks) marketplace contract
+* Using [TypeChain](https://github.com/dethcrypto/TypeChain) to generate types from solidity contracts
+
+### Installation
+
+```console
 $ npm i -g solc ganache-cli truffle
+$ npm i
 ```
 
-## Run
+### Run ganache emulator 
 
-```bash
+```console
 $ npm run ganache
 ```
 
-## Migrate
+### Run contract migration
 
-```bash
+```console
 $ npm run migrate
 ```
 
-## Test
+### Run unit tests
 
-```bash
+```console
 $ npm run test
 ```
