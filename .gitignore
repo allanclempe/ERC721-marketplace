@@ -1,0 +1,4 @@
+build
+migrations
+types/truffle-contracts
+node_modules
