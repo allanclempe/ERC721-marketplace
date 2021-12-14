@@ -6,14 +6,20 @@
   "directories": {
     "test": "test"
   },
+  "files": [
+    "/contracts/**/*.sol",
+    "/build/contracts/*.json",
+    "!/contracts/mocks/**/*"
+  ],
   "scripts": {
     "ganache": "ganache-cli --account='0xc19266a30d817650ad880c63049d653e63e4d9f16e7eab2237ae02a9eacfad80,10000000000000000000000000000' --account='0x701d41138980df9f33136a9a0fa35e44aeae4f32fc77e35c40330648f76b6719,1000000000000000000000' --account='0x31444c96d569cd7a8edbf022a3e543e642129421ebe18b48166b5cb598d80d01,1000000000000000000000' --account='0xa8b2caae4de840698babbbf909620e22bf8362ea117f3647af30d13482fb36cb,1000000000000000000000'",
-    "prebuild": "rimraf build",
+    "prebuild": "rimraf build contracts/build",
     "build": "truffle compile && npm run generate-types",
     "test": "truffle test",
     "generate-types": "typechain --target=truffle-v5 'build/contracts/*.json'",
     "postinstall": "npm run build && npm run generate-types",
     "migrate": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
+    "migrate:testnet": "npm run migrate -- --network testnet",
     "typecheck": "tsc --noEmit"
   },
   "prettier": {
@@ -39,6 +45,7 @@
     "typescript": "4.1.5"
   },
   "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.0.0",
     "prettier": "^2.5.1"
   }
 }

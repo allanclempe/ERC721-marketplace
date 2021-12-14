@@ -1,0 +1,29 @@
+{
+    "name": "@clempe/contracts",
+    "description": "Secure Smart Contract library for Solidity",
+    "version": "0.0.1",
+    "files": [
+      "**/*.sol",
+      "/build/contracts/*.json",
+      "!/mocks/**/*"
+    ],
+    "scripts": {
+      "prepare": "bash ../scripts/prepare-contracts-package.sh"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/allanclempe/solidity-contracts.git"
+    },
+    "keywords": [
+      "solidity",
+      "ethereum",
+      "smart",
+      "contracts"
+    ],
+    "author": "Allan Clempe",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/allanclempe/solidity-contracts/issues"
+    },
+    "homepage": "https://clempe.dev"
+  }

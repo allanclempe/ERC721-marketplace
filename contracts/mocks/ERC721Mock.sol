@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-import "./ERC721Market.sol";
+import "../ERC721Market.sol";
 
 pragma solidity ^0.8.9;
 
