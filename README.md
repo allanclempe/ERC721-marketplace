@@ -6,37 +6,18 @@
 - Based on [CryptoPunk](https://github.com/larvalabs/cryptopunks) marketplace contract
 - Using [TypeChain](https://github.com/dethcrypto/TypeChain) to generate types from solidity contracts
 
-### Installation
+## Install
 
-```console
-$ npm i -g solc ganache-cli truffle
-$ npm i
+```bash
+$ npm i @clempe/contracts --save
 ```
 
-### Run ganache emulator
-
-```console
-$ npm run ganache
-```
-
-### Run contract migration
-
-```console
-$ npm run migrate
-```
-
-### Run unit tests
-
-```console
-$ npm run test
-```
-
-## Try yourself (implementation)
+## Getting started
 
 Extend your contact with `ERC721Maket` where `totalCut` is the maximum cut fee allowed, represented by points of 0-1000 where 100 is 1%
 
 ```solidity
-import "./ERC721Market.sol";
+import '@clempe/contracts/ERC721Market.sol';
 
 contract NFTContract is ERC721Market {
     constructor(
@@ -84,6 +65,6 @@ Every confirmed sale in your contract will call this function and lock the corre
 
 *node: `totalCut` must match the summarised points between all participants - for instance totalCut=250 (2.5%)*
 
-### Public contract methods available
+## Buy or sell an NFT item.
 
 Checkout [IERC721Market.sol](contracts/IERC721Market.sol) interface
