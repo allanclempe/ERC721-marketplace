@@ -14,7 +14,7 @@ $ npm i @clempe/contracts --save
 
 ## Getting started
 
-Extend your contact with `ERC721Maket` where `totalCut` is the maximum cut fee allowed, represented by points of 0-1000 where 100 is 1%
+Extend your contact with `ERC721Maket` where `totalCut` is the maximum cut fee allowed, represented by points of 0-1000 where 100 is 1%, 1000 is 10% and so on. 
 
 ```solidity
 import '@clempe/contracts/ERC721Market.sol';
@@ -63,8 +63,8 @@ By default, the cut will be locked in the contract address, but you can override
 
 Every confirmed sale in your contract will call this function and lock the correct amount for each account. 
 
-*node: `totalCut` must match the summarised points between all participants - for instance totalCut=250 (2.5%)*
+*note: `totalCut` must match the summarised points between all participants - for instance totalCut=250 (2.5%)*
 
-## Buy or sell an NFT item.
+## Buy or sell an NFT
 
 Checkout [IERC721Market.sol](contracts/IERC721Market.sol) interface
