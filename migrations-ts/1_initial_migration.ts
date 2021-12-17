@@ -7,7 +7,7 @@ module.exports = async function (deployer, network, accounts) {
     ERC721Mock,
     'ERC721Mock',
     'NFTE',
-    'http://ipfs.com/id',
+    'https://ipfs.io/ipfs/cid/',
     new BN(process.env.CUT_AMOUNT)
   )
 } as Truffle.Migration

@@ -30,7 +30,7 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
     }
 
     modifier onlyValidIndex(uint256 index) {
-        require(index < totalSupply());
+        require(_exists(index));
         _;
     }
 
