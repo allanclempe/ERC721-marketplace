@@ -20,11 +20,9 @@
     "postinstall": "npm run build && npm run generate-types",
     "migrate": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
     "migrate:testnet": "npm run migrate -- --network testnet",
-    "typecheck": "tsc --noEmit"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
+    "typecheck": "tsc --noEmit",
+    "solhint": "./node_modules/.bin/solhint -f table contracts/**/*.sol",
+    "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol"
   },
   "author": "Allan Clempe",
   "license": "MIT",
@@ -46,6 +44,9 @@
   },
   "devDependencies": {
     "@truffle/hdwallet-provider": "^2.0.0",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "prettier-plugin-solidity": "^1.0.0-beta.19",
+    "solhint": "^3.3.6",
+    "solhint-plugin-prettier": "^0.0.5"
   }
 }
