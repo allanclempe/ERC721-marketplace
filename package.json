@@ -1,5 +1,5 @@
 {
-  "name": "solidity-contracts",
+  "name": "erc721-marketplace-source",
   "version": "1.0.0",
   "description": "",
   "main": "truffle-config.js",

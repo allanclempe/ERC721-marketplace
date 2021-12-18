@@ -15,9 +15,11 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
 
     mapping(address => uint256) public pendingWithdrawals;
 
+    /// @dev cut base
     uint256 public constant INVERSE_BASIS_POINT = 10000;
 
-    uint256 private _totalCut;
+    /// @dev cut percentage percentage represented by 0-10000
+    uint256 private _cut;
 
     modifier onlyOwnerOf(uint256 index) {
         require(ownerOf(index) == _msgSender(), "allowed just for owner");
@@ -66,8 +68,9 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
 
     event BalanceWithdrawn(address from, uint256 value);
 
-    constructor(uint256 totalCut_) {
-        _totalCut = totalCut_;
+    constructor(uint256 totalCut) {
+        require(totalCut <= 10000, "cut exceeded 10000");
+        _cut = totalCut;
     }
 
     /// @dev See {IERC721Market-transferItem}.
@@ -191,7 +194,7 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
         payable(sender).transfer(amount);
     }
 
-   /// @dev See {IERC721Market-withdraw}.
+    /// @dev See {IERC721Market-withdraw}.
     function withdraw() public payable {
         address sender = _msgSender();
         uint256 amount = pendingWithdrawals[sender];
@@ -231,26 +234,28 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
     /// default behaviour is to locked _totalCut in the contract address
     /// core contract can override and write the default logic
     /// @param amount sale amount
-    function _calculateCut(uint256 amount) internal virtual returns (MarketCut[] memory) {
+    /// @param cut see {_cut}
+    function _calculateCut(uint256 amount, uint256 cut) internal virtual returns (MarketCut[] memory) {
         MarketCut[] memory lockedInContract = new MarketCut[](1);
-        lockedInContract[0] = MarketCut(address(this), _computeCut(amount, _totalCut));
+        lockedInContract[0] = MarketCut(address(this), _computeCut(amount, cut));
         return lockedInContract;
     }
 
     /// @dev calc de cut percentage
     /// @param price sale price
-    /// @param cut 0-10000
+    /// @param cut see {_cut}
     function _computeCut(uint256 price, uint256 cut) internal pure returns (uint256) {
         return (price.mul(cut)).div(INVERSE_BASIS_POINT);
     }
 
     /// @dev calcute cut and add balance to the correct address
     /// @param amount sale price
+    /// @param cut see {_cut}
     /// @return seller proceeds
-    function _addBalanceActioneers(uint256 amount) private returns (uint256) {
+    function _addBalanceActioneers(uint256 amount, uint256 cut) private returns (uint256) {
         uint256 totalAmount = 0;
 
-        MarketCut[] memory procotolFees = _calculateCut(amount);
+        MarketCut[] memory procotolFees = _calculateCut(amount, cut);
 
         for (uint256 i = 0; i < procotolFees.length; i++) {
             _addBalance(procotolFees[i].to, procotolFees[i].amount);
@@ -265,10 +270,7 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
     /// @param seller seller address
     /// @param amount sale amount
     function _addBalanceSeller(address seller, uint256 amount) private {
-        uint256 auctioneerCut = _addBalanceActioneers(amount);
-        uint256 maxCut = _computeCut(amount, _totalCut);
-
-        require(auctioneerCut <= maxCut, "auctionner cut exceeded");
+        uint256 auctioneerCut = _cut == 0 ? 0 : _addBalanceActioneers(amount, _cut);
 
         _addBalance(seller, amount.sub(auctioneerCut));
     }
@@ -292,7 +294,7 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
 
     /// @dev make a refund for an existent bid. will be available for withdraw
     /// @param index tokenId
-    /// @param to refund to
+    /// @param to refund address
     function _refundBid(uint256 index, address to) internal {
         Bid storage bid = itemBids[index];
         if (bid.bidder == to) {

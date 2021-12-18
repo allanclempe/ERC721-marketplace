@@ -1,6 +1,6 @@
 {
-    "name": "@clempe/contracts",
-    "description": "Smart Contract library for Solidity",
+    "name": "erc721-marketplace",
+    "description": "Solidity contract marketplace extension for ERC721",
     "version": "0.1.1",
     "files": [
       "**/*.sol",
@@ -12,7 +12,7 @@
     },
     "repository": {
       "type": "git",
-      "url": "https://github.com/allanclempe/solidity-contracts.git"
+      "url": "https://github.com/allanclempe/ERC721-marketplace.git"
     },
     "keywords": [
       "solidity",
@@ -23,7 +23,7 @@
     "author": "Allan Clempe",
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/allanclempe/solidity-contracts/issues"
+      "url": "https://github.com/allanclempe/ERC721-marketplace/issues"
     },
     "homepage": "https://clempe.dev"
   }
