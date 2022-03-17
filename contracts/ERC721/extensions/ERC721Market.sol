@@ -173,9 +173,9 @@ abstract contract ERC721Market is ERC721Enumerable, IERC721Market {
 
         _addBalanceSeller(seller, bid.value);
 
-        itemBids[index] = Bid(false, index, address(0x0), 0);
-
         emit ItemBought(index, bid.value, seller, bid.bidder);
+
+        itemBids[index] = Bid(false, index, address(0x0), 0);
     }
 
     /// @dev See {IERC721Market-withdrawBidForItem}.
